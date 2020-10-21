@@ -15,7 +15,7 @@ public class JdbcUtils {
     private static DruidDataSource dataSource;
 
     static {
-        try (var in = ClassLoader.getSystemClassLoader()
+        try (var in = JdbcUtils.class.getClassLoader()
                 .getResourceAsStream("jdbc.properties")) {
             var props = new Properties();
             props.load(in);
@@ -33,8 +33,8 @@ public class JdbcUtils {
             return dataSource.getConnection();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-            return null;
         }
+        return null;
     }
 
     // TODO: 2020/10/20 使用try-with-resources无需使用此函数

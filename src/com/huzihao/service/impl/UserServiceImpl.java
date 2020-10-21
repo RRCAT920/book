@@ -10,7 +10,7 @@ import com.huzihao.service.UserService;
  * @since 2020/10/21 12:00
  */
 public class UserServiceImpl implements UserService {
-    private UserDao userDao = new UserDaoImpl();
+    private final UserDao userDao = new UserDaoImpl();
 
     @Override
     public void registUser(User user) {

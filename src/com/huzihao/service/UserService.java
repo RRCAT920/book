@@ -11,7 +11,7 @@ public interface UserService {
      * 注册用户
      * @param user User对象
      */
-    void registUser(User user);
+    void registerUser(User user);
 
     /**
      * 登录

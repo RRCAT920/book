@@ -16,8 +16,8 @@ public class UserServiceTest {
 
     @Test
     public void registUser() {
-        service.registUser(new User(null, "admin", "null", null));
-        service.registUser(new User(null, "lirongrong", "lirongrong", "lirongrong@qq.com"));
+        service.registerUser(new User(null, "admin", "null", null));
+        service.registerUser(new User(null, "lirongrong", "lirongrong", "lirongrong@qq.com"));
     }
 
     @Test

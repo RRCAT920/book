@@ -27,17 +27,26 @@ public class RegisterServlet extends HttpServlet {
         var code = request.getParameter("code");
 
         // 验证验证码
+        var path = "/pages/user/register.html";
         if ("abcde".equalsIgnoreCase(code)) {
             if (!userService.existsUsername(username)) {
-                userService.registUser(new User(null, username, password, email));
-                request.getRequestDispatcher("/pages/user/register_success.html").forward(request, response);
-            } else {
-                System.out.printf("用户名[%s]已存在！%n", username);
-                request.getRequestDispatcher("/pages/user/register.html").forward(request, response);
-            }
-        } else {
-            System.out.printf("验证码[%s]错误%n", code);
-            request.getRequestDispatcher("/pages/user/register.html").forward(request, response);
-        }
+                userService.registerUser(new User(null, username, password, email));
+                path = "/pages/user/register_success.html";
+            } else System.out.printf("用户名[%s]已存在！%n", username);
+        } else System.out.printf("验证码[%s]错误%n", code);
+        dispatch(path, request, response);
+    }
+
+    /**
+     * 请求转发
+     * @param path 转发地址
+     * @param request 请求
+     * @param response 响应
+     * @throws ServletException
+     * @throws IOException
+     */
+    private void dispatch(String path, HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.getRequestDispatcher(path).forward(request, response);
     }
 }

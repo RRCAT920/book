@@ -16,7 +16,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
                 from t_user
                 where username = ?
                 """;
-        return queryForOne(User.class, sql, username);
+        return get(User.class, sql, username);
     }
 
     @Override
@@ -26,7 +26,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
                 from t_user
                 where username = ? and password = ?
                 """;
-        return queryForOne(User.class, sql, username, password);
+        return get(User.class, sql, username, password);
     }
 
     @Override

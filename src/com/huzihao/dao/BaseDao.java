@@ -16,7 +16,7 @@ import java.util.List;
  * @since 2020/10/20 23:14
  */
 public abstract class BaseDao {
-    private QueryRunner queryRunner = new QueryRunner();
+    private final QueryRunner queryRunner = new QueryRunner();
 
     /**
      * 执行insert/update/delete语句
@@ -25,13 +25,10 @@ public abstract class BaseDao {
      * @return -1表示执行失败，否则返回影响行数
      */
     public int update(String sql, Object... args) {
-        var cxn = JdbcUtils.getConnection();
-        try {
+        try (var cxn = JdbcUtils.getConnection()) {
             return queryRunner.update(cxn, sql, args);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        } finally {
-            JdbcUtils.close(cxn);
         }
         return -1;
     }
@@ -44,14 +41,11 @@ public abstract class BaseDao {
      * @param <T> Bean对象的类型
      * @return Bean对象
      */
-    public <T> T queryForOne(Class<T> type, String sql, Object... args) {
-        var cxn = JdbcUtils.getConnection();
-        try {
+    public <T> T get(Class<T> type, String sql, Object... args) {
+        try (var cxn = JdbcUtils.getConnection()) {
             return queryRunner.query(cxn, sql, new BeanHandler<>(type), args);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        } finally {
-            JdbcUtils.close(cxn);
         }
         return null;
     }
@@ -64,14 +58,11 @@ public abstract class BaseDao {
      * @param <T> Bean对象的类型
      * @return Bean对象的List
      */
-    public <T> List<T> queryForList(Class<T> type, String sql, Object... args) {
-        var cxn = JdbcUtils.getConnection();
-        try {
+    public <T> List<T> getList(Class<T> type, String sql, Object... args) {
+        try (var cxn = JdbcUtils.getConnection()) {
             return queryRunner.query(cxn, sql, new BeanListHandler<>(type), args);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        } finally {
-            JdbcUtils.close(cxn);
         }
         return null;
     }
@@ -82,14 +73,11 @@ public abstract class BaseDao {
      * @param args 占位符的值
      * @return 结果
      */
-    public Object queryForSingleValue(String sql, Object... args) {
-        var cxn = JdbcUtils.getConnection();
-        try {
+    public Object getValue(String sql, Object... args) {
+        try (var cxn = JdbcUtils.getConnection()) {
             return queryRunner.query(cxn, sql, new ScalarHandler(), args);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        } finally {
-            JdbcUtils.close(cxn);
         }
         return null;
     }

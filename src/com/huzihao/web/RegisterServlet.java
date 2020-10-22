@@ -30,10 +30,22 @@ public class RegisterServlet extends HttpServlet {
         var path = "/pages/user/register.jsp";
         if ("abcde".equalsIgnoreCase(code)) {
             if (!userService.existsUsername(username)) {
+                // 用户名不存在
                 userService.registerUser(new User(null, username, password, email));
                 path = "/pages/user/register_success.jsp";
-            } else System.out.printf("用户名[%s]已存在！%n", username);
-        } else System.out.printf("验证码[%s]错误%n", code);
+            } else {
+                // 用户名已存在
+                request.setAttribute("msg", "用户名已存在！");
+                request.setAttribute("username", username);
+                System.out.printf("用户名[%s]已存在！%n", username);
+            }
+        } else {
+            // 验证码错误
+            request.setAttribute("msg", "验证码错误！");
+            request.setAttribute("username", username);
+            request.setAttribute("email", email);
+            System.out.printf("验证码[%s]错误%n", code);
+        }
         dispatch(path, request, response);
     }
 

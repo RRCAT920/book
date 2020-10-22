@@ -6,7 +6,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String basePath = request.getScheme() + "://"
-            + request.getServerName() + ":" + request.getServerPort() + "/"
+            + request.getServerName() + ":" + request.getServerPort()
             + request.getContextPath() + "/";
 %>
 <!-- base的href属性最佳实践 -->

@@ -22,9 +22,15 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         var username = req.getParameter("username");
         var password = req.getParameter("password");
+
         var path = "/pages/user/login.jsp";
         if (null != SERVICE.login(new User(username, password))) {
+            // 登录成功
             path = "/pages/user/login_success.jsp";
+        } else {
+            // 登录失败
+            req.setAttribute("msg", "用户名或密码错误！");
+            req.setAttribute("username", username);
         }
         req.getRequestDispatcher(path).forward(req, resp);
     }

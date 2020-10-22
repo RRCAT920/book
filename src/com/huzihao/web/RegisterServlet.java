@@ -27,11 +27,11 @@ public class RegisterServlet extends HttpServlet {
         var code = request.getParameter("code");
 
         // 验证验证码
-        var path = "/pages/user/register.html";
+        var path = "/pages/user/register.jsp";
         if ("abcde".equalsIgnoreCase(code)) {
             if (!userService.existsUsername(username)) {
                 userService.registerUser(new User(null, username, password, email));
-                path = "/pages/user/register_success.html";
+                path = "/pages/user/register_success.jsp";
             } else System.out.printf("用户名[%s]已存在！%n", username);
         } else System.out.printf("验证码[%s]错误%n", code);
         dispatch(path, request, response);

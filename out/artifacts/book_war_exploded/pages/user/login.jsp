@@ -1,10 +1,11 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>会员登录页面</title>
-    <base href="http://localhost:8080/book/">
-    <link type="text/css" rel="stylesheet" href="static/css/style.css">
+    <%@ include file="/pages/common/head.jsp"%>
+
 </head>
 <body>
 <div id="login_header">
@@ -22,7 +23,7 @@
             <div class="login_box">
                 <div class="tit">
                     <h1>会员</h1>
-                    <a href="register.html">立即注册</a>
+                    <a href="pages/user/register.jsp">立即注册</a>
                 </div>
                 <div class="msg_cont">
                     <b></b>
@@ -48,10 +49,7 @@
         </div>
     </div>
 </div>
-<div id="bottom">
-			<span>
-				书城.Copyright &copy;2020
-			</span>
-</div>
+<%@ include file="/pages/common/footer.jsp"%>
+
 </body>
 </html>

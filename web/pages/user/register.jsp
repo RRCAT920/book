@@ -4,16 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <title>会员注册页面</title>
-    <!--  base的href属性最佳实践  -->
-    <base href="http://localhost:8080/book/">
-    <link type="text/css" rel="stylesheet" href="static/css/style.css">
+    <%@ include file="/pages/common/head.jsp"%>
     <style type="text/css">
         .login_form {
             height: 420px;
             margin-top: 25px;
         }
     </style>
-    <script src="static/script/jquery-3.5.1.min.js"></script>
     <script src="static/script/user/register.js"></script>
 </head>
 <body>
@@ -71,10 +68,7 @@
         </div>
     </div>
 </div>
-<div id="bottom">
-			<span>
-				书城.Copyright &copy;2020
-			</span>
-</div>
+<%@ include file="/pages/common/footer.jsp"%>
+
 </body>
 </html>

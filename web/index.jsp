@@ -4,7 +4,8 @@
 <head>
 <meta charset="UTF-8">
 <title>书城首页</title>
-<link type="text/css" rel="stylesheet" href="static/css/style.css" >
+	<%@ include file="/pages/common/head.jsp"%>
+
 </head>
 <body>
 	
@@ -172,10 +173,6 @@
 	
 	</div>
 	
-	<div id="bottom">
-		<span>
-			书城.Copyright &copy;2020
-		</span>
-	</div>
+<%@ include file="/pages/common/footer.jsp"%>
 </body>
 </html>

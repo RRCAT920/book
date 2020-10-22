@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>结算页面</title>
+    <title>后台管理</title>
     <%@ include file="/pages/common/head.jsp" %>
 
     <style type="text/css">
@@ -17,19 +17,19 @@
 
 <div id="header">
     <img class="logo_img" alt="" src="../../static/img/logo.gif">
-    <span class="wel_word">结算</span>
-    <%@ include file="/pages/common/login_success_menu.jsp" %>
-
+    <span class="wel_word">后台管理系统</span>
+    <div>
+        <a href="book_manager.jsp">图书管理</a>
+        <a href="order_manager.jsp">订单管理</a>
+        <a href="../../index.jsp">返回商城</a>
+    </div>
 </div>
 
 <div id="main">
-
-    <h1>你的订单已结算，订单号为2937474382928484747</h1>
-
-
+    <h1>欢迎管理员进入后台管理系统</h1>
 </div>
 
-<%@ include file="/pages/common/footer.jsp" %>
+<%@ include file="/pages/common/footer.jsp"%>
 
 </body>
 </html>

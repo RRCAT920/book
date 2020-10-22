@@ -12,8 +12,11 @@
 <div id="header">
     <img class="logo_img" alt="" src="../../static/img/logo.gif">
     <span class="wel_word">图书管理系统</span>
-    <%@ include file="/pages/common/manager_menu.jsp" %>
-
+    <div>
+        <a href="book_manager.jsp">图书管理</a>
+        <a href="order_manager.jsp">订单管理</a>
+        <a href="../../index.jsp">返回商城</a>
+    </div>
 </div>
 
 <div id="main">

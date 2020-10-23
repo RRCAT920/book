@@ -5,6 +5,7 @@ import com.huzihao.service.UserService;
 import com.huzihao.service.impl.UserServiceImpl;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,16 +20,20 @@ public class UserServlet extends HttpServlet {
     private final UserService userService = new UserServiceImpl();
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
         var action = req.getParameter("action");
-        if ("login".equals(action)) {
-            login(req, resp);
-        } else if ("register".equals(action)) {
-            register(req, resp);
+        try {
+            var method = this.getClass()
+                    .getDeclaredMethod(action, HttpServletRequest.class, HttpServletResponse.class);
+            method.invoke(this, req, resp);
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
         }
     }
 
-    protected void login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void login(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
         var username = req.getParameter("username");
         var password = req.getParameter("password");
 
@@ -44,7 +49,8 @@ public class UserServlet extends HttpServlet {
         req.getRequestDispatcher(path).forward(req, resp);
     }
 
-    protected void register(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void register(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
         // 获取请求参数
         var username = req.getParameter("username");
         var password = req.getParameter("password");

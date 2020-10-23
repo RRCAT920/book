@@ -43,15 +43,17 @@ public class BookServiceImpl implements BookService {
     @Override
     public Page<Book> paging(int number, int size) {
         var page = new Page<Book>();
-        page.setNumber(number);
         page.setSize(size);
 
         var totalRecordsNumber = bookDao.getPageTotalRecordsNumber();
         page.setTotalRecordsNumber(totalRecordsNumber);
 
-        Integer totalNumber = totalRecordsNumber / size;
+        int totalNumber = totalRecordsNumber / size;
         if (totalRecordsNumber % size > 0) totalNumber++;
         page.setTotalNumber(totalNumber);
+
+
+        page.setNumber(number);
 
         var items = bookDao.getPageItems((number - 1) * size, size);
         page.setItems(items);

@@ -49,6 +49,9 @@ public class Page<T> {
     }
 
     public void setNumber(Integer number) {
+        // 数据边界检查
+        number = Math.max(number, 1);
+        number = Math.min(number, totalNumber);
         this.number = number;
     }
 

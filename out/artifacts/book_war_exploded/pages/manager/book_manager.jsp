@@ -88,10 +88,14 @@
         <input id="searchPageBtn" type="button" value="确定">
         <script>
             $(function () {
+                // 危险：如果在地址栏输入url可以跳过此校验
                 $("#searchPageBtn").click(function () {
+                    let prefix = ${pageScope.basePath} +"manager/book?action=paging&number=";
                     let number = $("#pn_input").val();
+                    number = number < 1 ? 1 : number;
+                    number = number > ${requestScope.page.totalNumber} ?
+                        ${requestScope.page.totalNumber} : number;
                     // 地址栏对象的href属性可以读写地址
-                    let prefix = "http://localhost:8080/book/manager/book?action=paging&number=";
                     location.href = prefix + number;
                 })
             })

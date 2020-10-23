@@ -8,6 +8,7 @@
     String basePath = request.getScheme() + "://"
             + request.getServerName() + ":" + request.getServerPort()
             + request.getContextPath() + "/";
+    pageContext.setAttribute("basePath", basePath);
 %>
 <!-- base的href属性最佳实践 -->
 <base href="<%=basePath%>">

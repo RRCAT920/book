@@ -84,8 +84,18 @@
         </c:if>
 
         共${requestScope.page.totalNumber}页，${requestScope.page.totalRecordsNumber}条记录
-        到第<input value="4" name="pn" id="pn_input"/>页
-        <input type="button" value="确定">
+        到第<input value="${param.number}" name="pn" id="pn_input"/>页
+        <input id="searchPageBtn" type="button" value="确定">
+        <script>
+            $(function () {
+                $("#searchPageBtn").click(function () {
+                    let number = $("#pn_input").val();
+                    // 地址栏对象的href属性可以读写地址
+                    let prefix = "http://localhost:8080/book/manager/book?action=paging&number=";
+                    location.href = prefix + number;
+                })
+            })
+        </script>
     </div>
 </div>
 

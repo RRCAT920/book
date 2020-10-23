@@ -35,6 +35,10 @@ public class Page<T> {
      * 页数据
      */
     private List<T> items;
+    /**
+     * 分页条的请求地址
+     */
+    private String url;
 
     @Override
     public String toString() {
@@ -45,6 +49,14 @@ public class Page<T> {
                 ", totalRecordsNumber=" + totalRecordsNumber +
                 ", items=" + items +
                 '}';
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public Integer getNumber() {

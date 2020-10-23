@@ -22,6 +22,8 @@ public abstract class BaseServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        // post请求中文乱码
+        req.setCharacterEncoding("UTF-8");
         var action = req.getParameter("action");
         try {
             var method = this.getClass()

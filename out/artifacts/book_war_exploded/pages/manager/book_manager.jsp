@@ -6,7 +6,18 @@
     <meta charset="UTF-8">
     <title>图书管理</title>
     <%@ include file="/pages/common/head.jsp" %>
+    <script>
+        $(function () {
+            // a标签删除的确认提示
+            $("a.deleteClass").click(function () {
+                // 事件处理器中的this: 正在响应事件的dom对象
 
+                // true: 确认
+                // false: 取消
+                return confirm("你确认要删除[" + $(this).parent().parent().find("td:first").text() + "]?");
+            })
+        })
+    </script>
 </head>
 <body>
 
@@ -37,7 +48,9 @@
                 <td>${book.sales}</td>
                 <td>${book.stock}</td>
                 <td><a href="book_edit.jsp">修改</a></td>
-                <td><a href="#">删除</a></td>
+                <td>
+                    <a href="manager/book?action=delete&id=${book.id}" class="deleteClass">删除</a>
+                </td>
             </tr>
         </c:forEach>
 

@@ -35,7 +35,14 @@ public class BookServlet extends BaseServlet {
 
     protected void delete(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-
+        /*
+        获取请求参数id
+        service调用deleteBookById
+        重定向到/manager/book?action=list
+         */
+        int id = WebUtils.parseInt(req.getParameter("id"), 0);
+        service.deleteBookById(id);
+        resp.sendRedirect(req.getContextPath() + "/manager/book?action=list");
     }
 
     protected void update(HttpServletRequest req, HttpServletResponse resp)

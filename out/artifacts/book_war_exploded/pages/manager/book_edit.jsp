@@ -29,7 +29,7 @@
 </div>
 
 <div id="main">
-    <form action="/manager/book" method="post">
+    <form action="manager/book" method="get">
         <input type="hidden" name="action" value="add">
         <table>
             <tr>

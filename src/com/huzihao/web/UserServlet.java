@@ -57,6 +57,7 @@ public class UserServlet extends BaseServlet {
                 // 用户名已存在
                 req.setAttribute("msg", "用户名已存在！");
                 req.setAttribute("username", username);
+                req.setAttribute("email", email);
                 System.out.printf("用户名[%s]已存在！%n", username);
             }
         } else {

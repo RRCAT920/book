@@ -3,6 +3,7 @@ package com.huzihao.web;
 import com.huzihao.pojo.User;
 import com.huzihao.service.UserService;
 import com.huzihao.service.impl.UserServiceImpl;
+import com.huzihao.utils.WebUtils;
 
 import java.io.IOException;
 
@@ -36,18 +37,21 @@ public class UserServlet extends BaseServlet {
 
     protected void register(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        // TODO: 2020/10/23 请求参数可以通过user获取
         // 获取请求参数
         var username = req.getParameter("username");
         var password = req.getParameter("password");
         var email = req.getParameter("email");
         var code = req.getParameter("code");
 
+        var user = WebUtils.copyParameterToBean(req.getParameterMap(), new User());
         // 验证验证码
         var path = "/pages/user/register.jsp";
         if ("abcde".equalsIgnoreCase(code)) {
             if (!userService.existsUsername(username)) {
                 // 用户名不存在
-                userService.registerUser(new User(null, username, password, email));
+
+                userService.registerUser(user);
                 path = "/pages/user/register_success.jsp";
             } else {
                 // 用户名已存在

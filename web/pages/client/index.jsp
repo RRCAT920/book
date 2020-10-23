@@ -23,7 +23,8 @@
 <div id="main">
     <div id="book">
         <div class="book_cond">
-            <form action="" method="get">
+            <form action="client/book" method="get">
+                <input type="hidden" name="action" value="pagingByPrice">
                 价格：<input id="min" type="text" name="min" value=""> 元 -
                 <input id="max" type="text" name="max" value=""> 元
                 <input type="submit" value="查询"/>

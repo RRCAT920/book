@@ -21,4 +21,6 @@ public interface BookService {
     List<Book> queryBooks();
 
     Page<Book> paging(int number, int size);
+
+    Page<Book> pagingByPrice(int number, int size, int min, int max);
 }

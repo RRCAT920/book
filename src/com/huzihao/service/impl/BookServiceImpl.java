@@ -59,4 +59,24 @@ public class BookServiceImpl implements BookService {
         page.setItems(items);
         return page;
     }
+
+    @Override
+    public Page<Book> pagingByPrice(int number, int size, int min, int max) {
+        var page = new Page<Book>();
+        page.setSize(size);
+
+        var totalRecordsNumber = bookDao.getPageTotalRecordsNumber(min, max);
+        page.setTotalRecordsNumber(totalRecordsNumber);
+
+        int totalNumber = totalRecordsNumber / size;
+        if (totalRecordsNumber % size > 0) totalNumber++;
+        page.setTotalNumber(totalNumber);
+
+        // 最佳实践：凡是有数据检查的setter，下次获取值调用getter
+        page.setNumber(number);
+
+        var items = bookDao.getPageItemsByPrice((page.getNumber() - 1) * size, size, min, max);
+        page.setItems(items);
+        return page;
+    }
 }

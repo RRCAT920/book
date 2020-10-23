@@ -51,4 +51,15 @@ public class BookDaoTest {
     public void getPageItems() {
         dao.getPageItems(8, Page.PAGE_SIZE).forEach(System.out::println);
     }
+
+    @Test
+    public void getPageTotalRecordsNumberByPrice() {
+        System.out.println(dao.getPageTotalRecordsNumber(10, 50));
+    }
+
+    @Test
+    public void getPageItemsByPrice() {
+        dao.getPageItemsByPrice(0, Page.PAGE_SIZE, 10, 50)
+                .forEach(System.out::println);
+    }
 }

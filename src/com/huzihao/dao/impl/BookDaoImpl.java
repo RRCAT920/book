@@ -79,4 +79,27 @@ public class BookDaoImpl extends BaseDao implements BookDao {
                 """;
         return getList(Book.class, sql, offset, size);
     }
+
+    @Override
+    public Integer getPageTotalRecordsNumber(int min, int max) {
+        var sql = """
+                select count(*)
+                from t_book
+                where price between ? and ?
+                """;
+        var count = (Number) getValue(sql, min, max);
+        return count.intValue();
+    }
+
+    @Override
+    public List<Book> getPageItemsByPrice(int offset, int size, int min, int max) {
+        var sql = """
+                select `id`, `name` , `author` , `price` , `sales` , `stock` , `img_path` imgPath
+                from t_book
+                where price between ? and ?
+                order by price
+                limit ?, ?
+                """;
+        return getList(Book.class, sql, min, max, offset, size);
+    }
 }

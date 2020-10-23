@@ -46,4 +46,9 @@ public class BookServiceTest {
     public void paging() {
         System.out.println(SERVICE.paging(1, Page.PAGE_SIZE));
     }
+
+    @Test
+    public void pagingByPrice() {
+        System.out.println(SERVICE.pagingByPrice(1, Page.PAGE_SIZE, 10, 50));
+    }
 }

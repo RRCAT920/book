@@ -32,13 +32,34 @@ public class ClientBookServlet extends BaseServlet {
         获取请求参数number, size
         调用service.paging(number, size): Page
         在request域中保存page
-        转发到/pages/manager/book_manager.jsp
+        转发到/pages/client/book_manager.jsp
          */
         int number = WebUtils.parseInt(req.getParameter("number"), 1);
         int size = WebUtils.parseInt(req.getParameter("size"), Page.PAGE_SIZE);
         var page = service.paging(number, size);
         page.setUrl("client/book?action=paging");
         req.setAttribute("page", page);
+        req.getRequestDispatcher("/pages/client/index.jsp").forward(req, resp);
+    }
+
+    protected void pagingByPrice(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        /*
+        获取请求参数number, size, min, max
+        调用service.pagingPrice(number, size, min, max): Page
+        在request域中保存page
+        转发到/pages/client/book_manager.jsp
+         */
+        int number = WebUtils.parseInt(req.getParameter("number"), 1);
+        int size = WebUtils.parseInt(req.getParameter("size"), Page.PAGE_SIZE);
+        int min = WebUtils.parseInt(req.getParameter("min"), 0);
+        int max = WebUtils.parseInt(req.getParameter("max"), Integer.MAX_VALUE);
+
+        var page = service.pagingByPrice(number, size, min, max);
+        page.setUrl("client/book?action=pagingByPrice");
+
+        req.setAttribute("page", page);
+
         req.getRequestDispatcher("/pages/client/index.jsp").forward(req, resp);
     }
 }

@@ -22,4 +22,8 @@ public interface BookDao {
     Integer getPageTotalRecordsNumber();
 
     List<Book> getPageItems(int offset, int size);
+
+    Integer getPageTotalRecordsNumber(int min, int max);
+
+    List<Book> getPageItemsByPrice(int offset, int size, int min, int max);
 }

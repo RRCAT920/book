@@ -52,6 +52,9 @@ public class BookServlet extends BaseServlet {
         service调用updateBook
         重定向到/工程名/manager/book?action=list
          */
+        var book = WebUtils.copyParameterToBean(req.getParameterMap(), new Book());
+        service.updateBook(book);
+        resp.sendRedirect(req.getContextPath() + "/manager/book?action=list");
     }
 
     protected void getBook(HttpServletRequest req, HttpServletResponse resp)

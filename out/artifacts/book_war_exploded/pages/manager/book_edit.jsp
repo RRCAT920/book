@@ -30,9 +30,9 @@
 
 <div id="main">
     <form action="manager/book" method="get">
-        // 是否是添加操作由 empty param.id 决定
-        <input type="hidden" name="action"
-               value="${empty requestScope.book ? "add" : "update"}">
+        <%--        是否是添加操作由 empty param.id 决定--%>
+        <input type="hidden" name="action" value="${empty param.id ? "add" : "update"}">
+        <input type="hidden" name="id" value="${requestScope.book.id}">
         <table>
             <tr>
                 <td>名称</td>

@@ -1,6 +1,7 @@
 package com.huzihao.service;
 
 import com.huzihao.pojo.Book;
+import com.huzihao.pojo.Page;
 import com.huzihao.service.impl.BookServiceImpl;
 
 import org.junit.Test;
@@ -39,5 +40,10 @@ public class BookServiceTest {
     @Test
     public void queryBooks() {
         SERVICE.queryBooks().forEach(System.out::println);
+    }
+
+    @Test
+    public void paging() {
+        System.out.println(SERVICE.paging(1, Page.PAGE_SIZE));
     }
 }

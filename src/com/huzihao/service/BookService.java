@@ -1,6 +1,7 @@
 package com.huzihao.service;
 
 import com.huzihao.pojo.Book;
+import com.huzihao.pojo.Page;
 
 import java.util.List;
 
@@ -18,4 +19,6 @@ public interface BookService {
     Book queryBookById(Integer id);
 
     List<Book> queryBooks();
+
+    Page<Book> paging(int number, int size);
 }

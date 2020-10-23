@@ -59,4 +59,24 @@ public class BookDaoImpl extends BaseDao implements BookDao {
                 """;
         return getList(Book.class, sql);
     }
+
+    @Override
+    public Integer getPageTotalRecordsNumber() {
+        var sql = """
+                select count(*)
+                from t_book
+                """;
+        var count = (Number) getValue(sql);
+        return count.intValue();
+    }
+
+    @Override
+    public List<Book> getPageItems(int offset, int size) {
+        var sql = """
+                select `id`, `name` , `author` , `price` , `sales` , `stock` , `img_path` imgPath
+                from t_book
+                limit ?, ?
+                """;
+        return getList(Book.class, sql, offset, size);
+    }
 }

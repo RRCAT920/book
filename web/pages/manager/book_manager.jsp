@@ -40,7 +40,7 @@
         </tr>
         <%--        从request域获取图书信息--%>
         <%--        使用JSTL遍历输出--%>
-        <c:forEach items="${requestScope.bookList}" var="book">
+        <c:forEach items="${requestScope.page.items}" var="book">
             <tr>
                 <td>${book.name}</td>
                 <td>${book.price}</td>
@@ -66,6 +66,18 @@
             <td><a href="pages/manager/book_edit.jsp">添加图书</a></td>
         </tr>
     </table>
+    <div id="page_nav">
+        <a href="#">首页</a>
+        <a href="#">上一页</a>
+        <a href="#">3</a>
+        [${requestScope.page.number}]
+        <a href="#">5</a>
+        <a href="#">下一页</a>
+        <a href="#">末页</a>
+        共${requestScope.page.totalNumber}页，${requestScope.page.totalRecordsNumber}条记录
+        到第<input value="4" name="pn" id="pn_input"/>页
+        <input type="button" value="确定">
+    </div>
 </div>
 
 <%@ include file="/pages/common/footer.jsp" %>

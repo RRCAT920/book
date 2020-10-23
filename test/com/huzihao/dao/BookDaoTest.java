@@ -2,6 +2,7 @@ package com.huzihao.dao;
 
 import com.huzihao.dao.impl.BookDaoImpl;
 import com.huzihao.pojo.Book;
+import com.huzihao.pojo.Page;
 
 import org.junit.Test;
 
@@ -39,5 +40,15 @@ public class BookDaoTest {
     @Test
     public void queryBooks() {
         dao.queryBooks().forEach(System.out::println);
+    }
+
+    @Test
+    public void getPageTotalRecordsNumber() {
+        System.out.println(dao.getPageTotalRecordsNumber());
+    }
+
+    @Test
+    public void getPageItems() {
+        dao.getPageItems(8, Page.PAGE_SIZE).forEach(System.out::println);
     }
 }

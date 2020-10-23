@@ -56,7 +56,11 @@ public class ClientBookServlet extends BaseServlet {
         int max = WebUtils.parseInt(req.getParameter("max"), Integer.MAX_VALUE);
 
         var page = service.pagingByPrice(number, size, min, max);
-        page.setUrl("client/book?action=pagingByPrice");
+
+        var urlBuilder = new StringBuilder("client/book?action=pagingByPrice");
+        if (null != req.getParameter("min")) urlBuilder.append("&min=").append(min);
+        if (null != req.getParameter("max")) urlBuilder.append("&max=").append(max);
+        page.setUrl(urlBuilder.toString());
 
         req.setAttribute("page", page);
 

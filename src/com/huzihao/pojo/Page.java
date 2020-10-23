@@ -13,7 +13,7 @@ public class Page<T> {
     /**
      * 默认页大小
      */
-    public static final int PAGE_SIZE = 2;
+    public static final int PAGE_SIZE = 4;
 
     /**
      * 当前页码

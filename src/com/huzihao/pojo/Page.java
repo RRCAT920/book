@@ -10,7 +10,7 @@ import java.util.List;
  * @since 2020/10/23 22:24
  */
 public class Page<T> {
-    public static final int PAGE_SIZE = 4;
+    public static final int PAGE_SIZE = 2;
 
     /**
      * 当前页码
@@ -48,6 +48,13 @@ public class Page<T> {
         return number;
     }
 
+    /**
+     * 设置当前页码
+     *
+     * @param number 页码
+     * @apiNote 要先调用setTotalNumber方法
+     * @see #setTotalNumber(Integer)
+     */
     public void setNumber(Integer number) {
         // 数据边界检查
         number = Math.max(number, 1);

@@ -52,7 +52,6 @@ public class BookServiceImpl implements BookService {
         if (totalRecordsNumber % size > 0) totalNumber++;
         page.setTotalNumber(totalNumber);
 
-
         page.setNumber(number);
 
         var items = bookDao.getPageItems((number - 1) * size, size);

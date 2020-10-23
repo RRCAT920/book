@@ -73,9 +73,44 @@
             <a href="manager/book?action=paging&number=${requestScope.page.number - 1}">上一页</a>
         </c:if>
 
-        <a href="#">3</a>
-        [${requestScope.page.number}]
-        <a href="#">5</a>
+        <%--页码输出开始--%>
+        <c:choose>
+            <%--总页码小于等于5，页码范围[1,总页码]--%>
+            <c:when test="${requestScope.page.totalNumber <= 5}">
+                <c:set var="begin" value="1"/>
+                <c:set var="end" value="${requestScope.page.totalNumber}"/>
+            </c:when>
+            <%--总页码>5，页码范围[总页码-4,总页码]--%>
+            <c:when test="${requestScope.page.totalNumber > 5}">
+                <c:choose>
+                    <%--当前页码1,2,3，页码范围[1,5]--%>
+                    <c:when test="${requestScope.page.number <= 3}">
+                        <c:set var="begin" value="1"/>
+                        <c:set var="end" value="5"/>
+                    </c:when>
+                    <%--当前页码 总页码-2,总页码-1,总页码，页码范围[总页码-4,总页码]--%>
+                    <c:when test="${requestScope.page.number > requestScope.page.totalNumber - 3}">
+                        <c:set var="begin" value="${requestScope.page.totalNumber - 4}"/>
+                        <c:set var="end" value="${requestScope.page.totalNumber}"/>
+                    </c:when>
+                    <%--其他(4,5,6,7,8)，页码范围[当前页码-2,当前页码+2]--%>
+                    <c:otherwise>
+                        <c:set var="begin" value="${requestScope.page.number - 2}"/>
+                        <c:set var="end" value="${requestScope.page.number + 2}"/>
+                    </c:otherwise>
+                </c:choose>
+            </c:when>
+        </c:choose>
+
+        <c:forEach begin="${begin}" end="${end}" var="i">
+            <c:if test="${i == requestScope.page.number}">
+                [${i}]
+            </c:if>
+            <c:if test="${i != requestScope.page.number}">
+                <a href="manager/book?action=paging&number=${i}">${i}</a>
+            </c:if>
+        </c:forEach>
+        <%--页码输出结束--%>
 
         <%--最后一页则不显示--%>
         <c:if test="${requestScope.page.number < requestScope.page.totalNumber}">

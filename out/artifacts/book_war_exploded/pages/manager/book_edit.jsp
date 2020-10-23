@@ -32,7 +32,7 @@
     <form action="manager/book" method="get">
         // 是否是添加操作由 empty param.id 决定
         <input type="hidden" name="action"
-               value="${empty param.id ? "add" : "update"}">
+               value="${empty requestScope.book ? "add" : "update"}">
         <table>
             <tr>
                 <td>名称</td>

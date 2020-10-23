@@ -47,7 +47,7 @@
                 <td>${book.author}</td>
                 <td>${book.sales}</td>
                 <td>${book.stock}</td>
-                <td><a href="book_edit.jsp">修改</a></td>
+                <td><a href="manager/book?action=getBook&id=${book.id}">修改</a></td>
                 <td>
                     <a href="manager/book?action=delete&id=${book.id}" class="deleteClass">删除</a>
                 </td>
@@ -56,6 +56,7 @@
 
 
         <tr>
+            <%--6个td占位符--%>
             <td></td>
             <td></td>
             <td></td>

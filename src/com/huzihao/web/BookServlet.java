@@ -50,6 +50,20 @@ public class BookServlet extends BaseServlet {
 
     }
 
+    protected void getBook(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        /*
+        获取请求参数id
+        service调用queryBookById得到book对象
+        将book对象设置到request域中
+        转发到/pages/manager/book_edit.jsp
+         */
+        var id = WebUtils.parseInt(req.getParameter("id"), 0);
+        var book = service.queryBookById(id);
+        req.setAttribute("book", book);
+        req.getRequestDispatcher("/pages/manager/book_edit.jsp").forward(req, resp);
+    }
+
     protected void list(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 //        1、查询全部图书

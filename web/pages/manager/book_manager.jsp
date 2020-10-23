@@ -67,13 +67,22 @@
         </tr>
     </table>
     <div id="page_nav">
-        <a href="#">首页</a>
-        <a href="#">上一页</a>
+        <%--大于首页才显示--%>
+        <c:if test="${requestScope.page.number > 1}">
+            <a href="manager/book?action=paging&number=1">首页</a>
+            <a href="manager/book?action=paging&number=${requestScope.page.number - 1}">上一页</a>
+        </c:if>
+
         <a href="#">3</a>
         [${requestScope.page.number}]
         <a href="#">5</a>
-        <a href="#">下一页</a>
-        <a href="#">末页</a>
+
+        <%--最后一页则不显示--%>
+        <c:if test="${requestScope.page.number < requestScope.page.totalNumber}">
+            <a href="manager/book?action=paging&number=${requestScope.page.number + 1}">下一页</a>
+            <a href="manager/book?action=paging&number=${requestScope.page.totalNumber}">末页</a>
+        </c:if>
+
         共${requestScope.page.totalNumber}页，${requestScope.page.totalRecordsNumber}条记录
         到第<input value="4" name="pn" id="pn_input"/>页
         <input type="button" value="确定">

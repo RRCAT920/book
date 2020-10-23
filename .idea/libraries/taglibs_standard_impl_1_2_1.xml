@@ -1,0 +1,18 @@
+<component name="libraryTable">
+  <library name="taglibs-standard-impl-1.2.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/taglibs-standard-impl-1.2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/taglibs-standard-spec-1.2.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/taglibs-standard-1.2.1-source-release.zip!/taglibs-standard-1.2.1/compat/src/main/java" />
+      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/taglibs-standard-1.2.1-source-release.zip!/taglibs-standard-1.2.1/impl/src/main/java" />
+      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/taglibs-standard-1.2.1-source-release.zip!/taglibs-standard-1.2.1/impl/src/test/java" />
+      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/taglibs-standard-1.2.1-source-release.zip!/taglibs-standard-1.2.1/jstlel/src/main/java" />
+      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/taglibs-standard-1.2.1-source-release.zip!/taglibs-standard-1.2.1/jstlel/src/test/java" />
+      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/taglibs-standard-1.2.1-source-release.zip!/taglibs-standard-1.2.1/spec/src/main/java" />
+      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/taglibs-standard-1.2.1-source-release.zip!/taglibs-standard-1.2.1/standard-test/src/test/java" />
+    </SOURCES>
+  </library>
+</component>

@@ -14,6 +14,12 @@ import javax.servlet.http.HttpServletResponse;
  */
 public abstract class BaseServlet extends HttpServlet {
     @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        doPost(req, resp);
+    }
+
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         var action = req.getParameter("action");

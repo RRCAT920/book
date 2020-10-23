@@ -23,7 +23,7 @@ public class BookServlet extends BaseServlet {
         /*
         1.获取请求参数，封装成Book对象
         2.调用service.addBook
-        3.重定向到/manager/book?action=list
+        3.重定向到/工程名/manager/book?action=list
          */
         var book = WebUtils.copyParameterToBean(req.getParameterMap(), new Book());
         service.addBook(book);
@@ -38,7 +38,7 @@ public class BookServlet extends BaseServlet {
         /*
         获取请求参数id
         service调用deleteBookById
-        重定向到/manager/book?action=list
+        重定向到/工程名/manager/book?action=list
          */
         int id = WebUtils.parseInt(req.getParameter("id"), 0);
         service.deleteBookById(id);
@@ -47,7 +47,11 @@ public class BookServlet extends BaseServlet {
 
     protected void update(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-
+        /*
+        封装请求参数到Book对象
+        service调用updateBook
+        重定向到/工程名/manager/book?action=list
+         */
     }
 
     protected void getBook(HttpServletRequest req, HttpServletResponse resp)
@@ -61,6 +65,7 @@ public class BookServlet extends BaseServlet {
         var id = WebUtils.parseInt(req.getParameter("id"), 0);
         var book = service.queryBookById(id);
         req.setAttribute("book", book);
+//        req.setAttribute("action", "update");
         req.getRequestDispatcher("/pages/manager/book_edit.jsp").forward(req, resp);
     }
 

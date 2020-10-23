@@ -30,7 +30,8 @@
 
 <div id="main">
     <form action="manager/book" method="get">
-        <input type="hidden" name="action" value="add">
+        <input type="hidden" name="action"
+               value="${param.method}">
         <table>
             <tr>
                 <td>名称</td>

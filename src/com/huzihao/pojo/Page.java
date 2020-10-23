@@ -10,6 +10,9 @@ import java.util.List;
  * @since 2020/10/23 22:24
  */
 public class Page<T> {
+    /**
+     * 默认页大小
+     */
     public static final int PAGE_SIZE = 2;
 
     /**

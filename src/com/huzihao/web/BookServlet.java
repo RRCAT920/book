@@ -21,6 +21,8 @@ public class BookServlet extends BaseServlet {
 
     protected void add(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        // 处理添加的分页功能
+        var number = WebUtils.parseInt(req.getParameter("number"), 0) + 1;
         /*
         1.获取请求参数，封装成Book对象
         2.调用service.addBook
@@ -31,7 +33,7 @@ public class BookServlet extends BaseServlet {
         // 表单重复提交：
         // 浏览器会记录最后一次请求的信息，当刷新页面时会再次发送最后一次请求
         // 若使用重定向，则改变了最后一次请求
-        resp.sendRedirect(req.getContextPath() + "/manager/book?action=list");
+        resp.sendRedirect(req.getContextPath() + "/manager/book?action=paging&number=" + number);
     }
 
     protected void delete(HttpServletRequest req, HttpServletResponse resp)
@@ -43,7 +45,8 @@ public class BookServlet extends BaseServlet {
          */
         int id = WebUtils.parseInt(req.getParameter("id"), 0);
         service.deleteBookById(id);
-        resp.sendRedirect(req.getContextPath() + "/manager/book?action=list");
+        resp.sendRedirect(req.getContextPath() + "/manager/book?action=paging&number=" +
+                req.getParameter("number"));
     }
 
     protected void update(HttpServletRequest req, HttpServletResponse resp)
@@ -55,7 +58,8 @@ public class BookServlet extends BaseServlet {
          */
         var book = WebUtils.copyParameterToBean(req.getParameterMap(), new Book());
         service.updateBook(book);
-        resp.sendRedirect(req.getContextPath() + "/manager/book?action=list");
+        resp.sendRedirect(req.getContextPath() + "/manager/book?action=paging&number=" +
+                req.getParameter("number"));
     }
 
     protected void getBook(HttpServletRequest req, HttpServletResponse resp)

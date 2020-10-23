@@ -52,9 +52,10 @@ public class BookServiceImpl implements BookService {
         if (totalRecordsNumber % size > 0) totalNumber++;
         page.setTotalNumber(totalNumber);
 
+        // 最佳实践：凡是有数据检查的setter，下次获取值调用getter
         page.setNumber(number);
 
-        var items = bookDao.getPageItems((number - 1) * size, size);
+        var items = bookDao.getPageItems((page.getNumber() - 1) * size, size);
         page.setItems(items);
         return page;
     }

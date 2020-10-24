@@ -11,6 +11,6 @@
     pageContext.setAttribute("basePath", basePath);
 %>
 <!-- base的href属性最佳实践 -->
-<base href="<%=basePath%>">
+<base href="${basePath}">
 <link type="text/css" rel="stylesheet" href="static/css/style.css">
 <script src="static/script/jquery-3.5.1.min.js"></script>

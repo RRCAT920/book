@@ -12,6 +12,16 @@
         }
     </style>
     <script src="static/script/user/register.js"></script>
+    <script>
+        $(function () {
+            // 给验证码图片绑定单击事件
+            $("#captcha_img").click(function () {
+                // 浏览器的缓存由 最后的资源名+参数
+                // 故更换参数可跳过浏览器缓存
+                this.src = "${basePath}kaptcha.jpg?d=" + new Date();
+            })
+        })
+    </script>
 </head>
 <body>
 <div id="login_header">
@@ -61,7 +71,7 @@
                         <label>验证码：</label>
                         <input class="itxt" type="text" style="width: 140px;" id="code"
                                name="code"/>
-                        <img alt="" src="kaptcha.jpg"
+                        <img id="captcha_img" alt="" src="kaptcha.jpg"
                              style="float: right; margin-right: 40px; width: 100px; height: 40px">
                         <br/>
                         <br/>

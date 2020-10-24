@@ -79,7 +79,8 @@ public class UserServlet extends BaseServlet {
         销毁session的用户信息（或销毁session）
         重定向到首页（登录页）
          */
-        req.getSession().invalidate();
+        req.getSession().removeAttribute("user");
+//        req.getSession().invalidate();
         resp.sendRedirect(req.getContextPath());
     }
 }

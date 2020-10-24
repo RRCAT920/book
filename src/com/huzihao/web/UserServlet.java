@@ -72,4 +72,14 @@ public class UserServlet extends BaseServlet {
         }
         req.getRequestDispatcher(path).forward(req, resp);
     }
+
+    protected void logout(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        /*
+        销毁session的用户信息（或销毁session）
+        重定向到首页（登录页）
+         */
+        req.getSession().invalidate();
+        resp.sendRedirect(req.getContextPath());
+    }
 }

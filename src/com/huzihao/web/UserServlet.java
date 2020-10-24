@@ -24,9 +24,12 @@ public class UserServlet extends BaseServlet {
         var password = req.getParameter("password");
 
         var path = "/pages/user/login.jsp";
-        if (null != userService.login(new User(username, password))) {
+        var loginUser = userService.login(new User(username, password));
+        if (null != loginUser) {
             // 登录成功
             path = "/pages/user/login_success.jsp";
+            // 保存用户登录之后的信息
+            req.getSession().setAttribute("user", loginUser);
         } else {
             // 登录失败
             req.setAttribute("msg", "用户名或密码错误！");

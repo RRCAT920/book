@@ -14,8 +14,17 @@
     <img class="logo_img" alt="" src="static/img/logo.gif">
     <span class="wel_word">网上书城</span>
     <div>
-        <a href="pages/user/login.jsp">登录</a> |
-        <a href="pages/user/register.jsp">注册</a> &nbsp;&nbsp;
+        <%--        如果用户没有登录，则显示登录和注册--%>
+        <c:if test="${empty sessionScope.user}">
+            <a href="pages/user/login.jsp">登录</a> |
+            <a href="pages/user/register.jsp">注册</a> &nbsp;&nbsp;
+        </c:if>
+        <%--            已经登录--%>
+        <c:if test="${not empty sessionScope.user}">
+            <span>欢迎<span class="um_span">${sessionScope.user.username}</span>来到书城</span>
+            <a href="pages/order/order.jsp">我的订单</a>
+            <a href="index.jsp">注销</a>&nbsp;&nbsp;
+        </c:if>
         <a href="pages/cart/cart.jsp">购物车</a>
         <a href="pages/manager/manager.jsp">后台管理</a>
     </div>

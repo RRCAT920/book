@@ -75,4 +75,26 @@ public class CartServlet extends BaseServlet {
             resp.sendRedirect(req.getHeader("Referer"));
         }
     }
+
+    /**
+     * Empty shopping cart
+     *
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
+    protected void clear(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        /*
+        获得session中的购物车
+        清空购物车
+        重定向回去
+         */
+        var cart = (Cart) req.getSession().getAttribute("cart");
+        if (null != cart) { // 防止直接输入地址删除
+            cart.clear();
+            resp.sendRedirect(req.getHeader("Referer"));
+        }
+    }
 }

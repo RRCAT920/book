@@ -10,7 +10,11 @@
         $(function () {
             $("a.deleteItem").click(function () {
                 let name = $(this).parent().parent().find("td:first").text();
-                return confirm("你确认要删除[" + name + "]吗?");
+                return confirm("你确定要删除[" + name + "]吗?");
+            })
+
+            $("#clearCart").click(function () {
+                return confirm("你确定要清空购物车吗?");
             })
         })
     </script>
@@ -58,7 +62,7 @@
                     class="b_count">${sessionScope.cart.totalNumber}</span>件商品</span>
             <span class="cart_span">总金额<span
                     class="b_price">${sessionScope.cart.totalPrice}</span>元</span>
-            <span class="cart_span"><a href="#">清空购物车</a></span>
+            <span class="cart_span"><a id="clearCart" href="cart?action=clear">清空购物车</a></span>
             <span class="cart_span"><a href="pages/cart/checkout.html">去结账</a></span>
         </div>
     </c:if>

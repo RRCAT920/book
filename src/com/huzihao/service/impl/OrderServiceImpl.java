@@ -1,7 +1,9 @@
 package com.huzihao.service.impl;
 
+import com.huzihao.dao.BookDao;
 import com.huzihao.dao.OrderDao;
 import com.huzihao.dao.OrderItemDao;
+import com.huzihao.dao.impl.BookDaoImpl;
 import com.huzihao.dao.impl.OrderDaoImpl;
 import com.huzihao.dao.impl.OrderItemDaoImpl;
 import com.huzihao.pojo.Cart;
@@ -19,6 +21,7 @@ import java.time.LocalDate;
 public class OrderServiceImpl implements OrderService {
     private final OrderDao orderDao = new OrderDaoImpl();
     private final OrderItemDao orderItemDao = new OrderItemDaoImpl();
+    private final BookDao bookDao = new BookDaoImpl();
 
     @Override
     public String createOrder(Cart cart, Integer userId) {
@@ -27,10 +30,18 @@ public class OrderServiceImpl implements OrderService {
         var order = new Order(orderId, Date.valueOf(LocalDate.now()), cart.getTotalPrice(),
                 0, userId);
         orderDao.saveOrder(order);
-        cart.getItems().values().stream()
-                .map(item -> new OrderItem(null, item.getName(), item.getNumber(),
-                        item.getPrice(), item.getTotalPrice(), orderId))
-                .forEach(orderItemDao::saveOrderItem);
+
+        for (var cartItem : cart.getItems().values()) {
+            var orderItem = new OrderItem(null, cartItem.getName(), cartItem.getNumber(),
+                    cartItem.getPrice(), cartItem.getTotalPrice(), orderId);
+            orderItemDao.saveOrderItem(orderItem);
+
+            var book = bookDao.queryBookById(cartItem.getId());
+            // TODO: 2020/10/26 没有数据检查
+            book.setSales(book.getSales() + cartItem.getNumber());
+            book.setStock(book.getStock() - cartItem.getNumber());
+            bookDao.updateBook(book);
+        }
 
         cart.clear();
 

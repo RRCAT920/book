@@ -31,7 +31,7 @@ public class OrderServlet extends BaseServlet {
         /*
         获得session域中的cart和user的id
         生成订单
-        将订单号保存到request域中
+        将订单号保存到session域中
         重定向到生成订单页面
          */
         var session = req.getSession();
@@ -46,8 +46,8 @@ public class OrderServlet extends BaseServlet {
 
         var orderId = orderService.createOrder(cart, userId);
 
-        req.setAttribute("orderId", orderId);
+        session.setAttribute("orderId", orderId);
 
-        req.getRequestDispatcher("/pages/cart/checkout.jsp").forward(req, resp);
+        resp.sendRedirect(req.getContextPath() + "/pages/cart/checkout.jsp");
     }
 }

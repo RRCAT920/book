@@ -13,6 +13,7 @@ public class CartItem {
     private String name;
     private Integer number; // Number of cart item
     private BigDecimal price;
+    // TODO: 2020/10/25 这个总价没有必要写成属性
     private BigDecimal totalPrice; // number * price
 
     public CartItem(Integer id, String name, Integer number, BigDecimal price, BigDecimal totalPrice) {

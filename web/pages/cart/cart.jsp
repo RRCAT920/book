@@ -16,6 +16,19 @@
             $("#clearCart").click(function () {
                 return confirm("你确定要清空购物车吗?");
             })
+
+            // 给输入框绑定内容改变事件
+            $("input.updateNumber").change(function () {
+                let name = $(this).parent().parent().find("td:first").text();
+                if (confirm("你确定要修改商品[" + name + "]的数量为" + this.value + "吗?")) {
+                    let id = $(this).attr("bookId");
+                    location.href = "${basePath}" + "cart?action=updateNumber&id=" + id +
+                        "&itemNumber=" + this.value;
+                } else {
+                    // defaultValue表单项默认值
+                    this.value = this.defaultValue;
+                }
+            })
         })
     </script>
 </head>
@@ -46,7 +59,10 @@
             <c:forEach items="${sessionScope.cart.items}" var="entry">
                 <tr>
                     <td>${entry.value.name}</td>
-                    <td>${entry.value.number}</td>
+                    <td>
+                        <input class="updateNumber" type="text" value="${entry.value.number}"
+                               style="width: 60px" bookId="${entry.value.id}">
+                    </td>
                     <td>${entry.value.price}</td>
                     <td>${entry.value.totalPrice}</td>
                     <td><a class="deleteItem"

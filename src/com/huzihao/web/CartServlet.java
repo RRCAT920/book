@@ -70,7 +70,7 @@ public class CartServlet extends BaseServlet {
          */
         int id = WebUtils.parseInt(req.getParameter("id"), 0);
         var cart = (Cart) req.getSession().getAttribute("cart");
-        if (null != cart) { // 防止直接输入地址删除
+        if (null != cart) {
             cart.deleteItem(id);
             resp.sendRedirect(req.getHeader("Referer"));
         }
@@ -92,8 +92,33 @@ public class CartServlet extends BaseServlet {
         重定向回去
          */
         var cart = (Cart) req.getSession().getAttribute("cart");
-        if (null != cart) { // 防止直接输入地址删除
+        if (null != cart) {
             cart.clear();
+            resp.sendRedirect(req.getHeader("Referer"));
+        }
+    }
+
+    /**
+     * Update the number of item of cart
+     *
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
+    protected void updateNumber(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        /*
+        获取请求参数id、itemNumber
+        获得session中的购物车
+        清空购物车
+        重定向回去
+         */
+        var id = WebUtils.parseInt(req.getParameter("id"), 0);
+        var number = WebUtils.parseInt(req.getParameter("itemNumber"), 1);
+        var cart = (Cart) req.getSession().getAttribute("cart");
+        if (null != cart) {
+            cart.updateItemNumber(id, number);
             resp.sendRedirect(req.getHeader("Referer"));
         }
     }

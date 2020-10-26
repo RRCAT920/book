@@ -51,4 +51,28 @@ public class CartServlet extends BaseServlet {
         System.out.println(cart);
         resp.sendRedirect(req.getHeader("Referer"));
     }
+
+    /**
+     * Delete item of cart
+     *
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
+    protected void deleteItem(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        /*
+        获得请求参数id
+        获得session中的购物车
+        删除商品项
+        重定向回去
+         */
+        int id = WebUtils.parseInt(req.getParameter("id"), 0);
+        var cart = (Cart) req.getSession().getAttribute("cart");
+        if (null != cart) { // 防止直接输入地址删除
+            cart.deleteItem(id);
+            resp.sendRedirect(req.getHeader("Referer"));
+        }
+    }
 }

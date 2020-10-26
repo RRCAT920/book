@@ -6,7 +6,14 @@
     <meta charset="UTF-8">
     <title>购物车</title>
     <%@ include file="/pages/common/head.jsp" %>
-
+    <script>
+        $(function () {
+            $("a.deleteItem").click(function () {
+                let name = $(this).parent().parent().find("td:first").text();
+                return confirm("你确认要删除[" + name + "]吗?");
+            })
+        })
+    </script>
 </head>
 <body>
 
@@ -14,7 +21,6 @@
     <img class="logo_img" alt="" src="static/img/logo.gif">
     <span class="wel_word">购物车</span>
     <%@ include file="/pages/common/login_success_menu.jsp" %>
-
 </div>
 
 <div id="main">
@@ -39,7 +45,8 @@
                     <td>${entry.value.number}</td>
                     <td>${entry.value.price}</td>
                     <td>${entry.value.totalPrice}</td>
-                    <td><a href="#">删除</a></td>
+                    <td><a class="deleteItem"
+                           href="cart?action=deleteItem&id=${entry.value.id}">删除</a></td>
                 </tr>
             </c:forEach>
         </c:if>

@@ -2,7 +2,10 @@ package com.huzihao.dao.impl;
 
 import com.huzihao.dao.BaseDao;
 import com.huzihao.dao.OrderDao;
+import com.huzihao.pojo.Book;
 import com.huzihao.pojo.Order;
+
+import java.util.List;
 
 /**
  * @author huzihao
@@ -17,5 +20,20 @@ public class OrderDaoImpl extends BaseDao implements OrderDao {
                 """;
         return update(sql, order.getOrderId(), order.getCreateTime(), order.getPrice(),
                 order.getStatus(), order.getUserId());
+    }
+
+    @Override
+    public List<Book> queryAllOrders() {
+        return null;
+    }
+
+    @Override
+    public void changeOrderStatus(String orderId, int status) {
+
+    }
+
+    @Override
+    public List<Book> queryOrdersByUserId(int userId) {
+        return null;
     }
 }

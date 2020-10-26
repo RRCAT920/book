@@ -4,6 +4,8 @@ import com.huzihao.dao.BaseDao;
 import com.huzihao.dao.OrderItemDao;
 import com.huzihao.pojo.OrderItem;
 
+import java.util.List;
+
 /**
  * @author huzihao
  * @since 2020/10/26 17:46
@@ -17,5 +19,10 @@ public class OrderItemDaoImpl extends BaseDao implements OrderItemDao {
                 """;
         return update(sql, orderItem.getName(), orderItem.getNumber(), orderItem.getPrice(),
                 orderItem.getTotalPrice(), orderItem.getOrderId());
+    }
+
+    @Override
+    public List<OrderItem> queryOrderItemsByOrderId(String orderId) {
+        return null;
     }
 }

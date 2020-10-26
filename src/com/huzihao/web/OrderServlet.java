@@ -50,4 +50,11 @@ public class OrderServlet extends BaseServlet {
 
         resp.sendRedirect(req.getContextPath() + "/pages/cart/checkout.jsp");
     }
+
+    // TODO: 2020/10/26
+    //  查询所有订单（管理员）
+    //  发货（管理员）
+    //  查看订单详情
+    //  查看我的订单（用户）
+    //  签收订单（用户）
 }

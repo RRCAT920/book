@@ -13,6 +13,7 @@ import java.util.Properties;
  */
 public class JdbcUtils {
     private static DruidDataSource dataSource;
+    private static ThreadLocal<Connection> connections = new ThreadLocal<>();
 
     static {
         try (var in = JdbcUtils.class.getClassLoader()
@@ -29,12 +30,18 @@ public class JdbcUtils {
      * @return 数据库连接
      */
     public static Connection getConnection() {
-        try {
-            return dataSource.getConnection();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        var cxn = connections.get();
+        if (null == cxn) {
+            try {
+                cxn = dataSource.getConnection();
+                connections.set(cxn);
+                cxn.setAutoCommit(false);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
-        return null;
+
+        return cxn;
     }
 
     // TODO: 2020/10/20 使用try-with-resources无需使用此函数
@@ -50,5 +57,30 @@ public class JdbcUtils {
                 throwables.printStackTrace();
             }
         }
+    }
+
+    public static void commitAndClose() {
+        final var cxn = connections.get();
+        if (null != cxn) {
+            try (cxn) {
+                cxn.commit();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+        // 一定要执行，否则会出错（因为Tomcat底层使用了线程池）
+        connections.remove();
+    }
+
+    public static void rollbackAndClose() {
+        final var cxn = connections.get();
+        if (null != cxn) {
+            try (cxn) {
+                cxn.rollback();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+        connections.remove();
     }
 }

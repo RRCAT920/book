@@ -25,12 +25,13 @@ public abstract class BaseDao {
      * @return -1表示执行失败，否则返回影响行数
      */
     public int update(String sql, Object... args) {
-        try (var cxn = JdbcUtils.getConnection()) {
+        var cxn = JdbcUtils.getConnection();
+        try {
             return queryRunner.update(cxn, sql, args);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            throw new RuntimeException(throwables);
         }
-        return -1;
     }
 
     /**
@@ -42,12 +43,13 @@ public abstract class BaseDao {
      * @return Bean对象
      */
     public <T> T get(Class<T> type, String sql, Object... args) {
-        try (var cxn = JdbcUtils.getConnection()) {
+        var cxn = JdbcUtils.getConnection();
+        try {
             return queryRunner.query(cxn, sql, new BeanHandler<>(type), args);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            throw new RuntimeException(throwables);
         }
-        return null;
     }
 
     /**
@@ -59,12 +61,13 @@ public abstract class BaseDao {
      * @return Bean对象的List
      */
     public <T> List<T> getList(Class<T> type, String sql, Object... args) {
-        try (var cxn = JdbcUtils.getConnection()) {
+        var cxn = JdbcUtils.getConnection();
+        try {
             return queryRunner.query(cxn, sql, new BeanListHandler<>(type), args);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            throw new RuntimeException(throwables);
         }
-        return null;
     }
 
     /**
@@ -74,11 +77,12 @@ public abstract class BaseDao {
      * @return 结果
      */
     public Object getValue(String sql, Object... args) {
-        try (var cxn = JdbcUtils.getConnection()) {
+        var cxn = JdbcUtils.getConnection();
+        try {
             return queryRunner.query(cxn, sql, new ScalarHandler(), args);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            throw new RuntimeException(throwables);
         }
-        return null;
     }
 }

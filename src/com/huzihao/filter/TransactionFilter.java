@@ -29,6 +29,7 @@ public class TransactionFilter implements Filter {
         } catch (Exception e) {
             JdbcUtils.rollbackAndClose();
             e.printStackTrace();
+            throw new RuntimeException(e); //   把异常抛给Tomcat服务器
         }
     }
 

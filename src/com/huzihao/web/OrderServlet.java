@@ -4,7 +4,6 @@ import com.huzihao.pojo.Cart;
 import com.huzihao.pojo.User;
 import com.huzihao.service.OrderService;
 import com.huzihao.service.impl.OrderServiceImpl;
-import com.huzihao.utils.JdbcUtils;
 
 import java.io.IOException;
 
@@ -45,14 +44,7 @@ public class OrderServlet extends BaseServlet {
         }
         var userId = loginUser.getId();
 
-        String orderId = null;
-        try {
-            orderId = orderService.createOrder(cart, userId);
-            JdbcUtils.commitAndClose();
-        } catch (Exception e) {
-            JdbcUtils.rollbackAndClose();
-            e.printStackTrace();
-        }
+        var orderId = orderService.createOrder(cart, userId);
 
         session.setAttribute("orderId", orderId);
 

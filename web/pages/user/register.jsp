@@ -14,6 +14,20 @@
     <script src="static/script/user/register.js"></script>
     <script>
         $(function () {
+            $("#username").change(function () {
+                $.getJSON(
+                    "${basePath}user",
+                    "action=ajaxExitsUsername&username=" + this.value,
+                    function (data) {
+                        if (data.existsUsername) {
+                            $("span.errorMsg").text("用户名已存在！");
+                        } else {
+                            $("span.errorMsg").text("用户名可用！");
+                        }
+                    }
+                )
+            })
+
             // 给验证码图片绑定单击事件
             $("#captcha_img").click(function () {
                 // 浏览器的缓存由 最后的资源名+参数

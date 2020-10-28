@@ -1,11 +1,13 @@
 package com.huzihao.web;
 
+import com.google.gson.Gson;
 import com.huzihao.pojo.User;
 import com.huzihao.service.UserService;
 import com.huzihao.service.impl.UserServiceImpl;
 import com.huzihao.utils.WebUtils;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -91,5 +93,23 @@ public class UserServlet extends BaseServlet {
         req.getSession().removeAttribute("user");
 //        req.getSession().invalidate();
         resp.sendRedirect(req.getContextPath());
+    }
+
+    protected void ajaxExitsUsername(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        /*
+        获取请求参数username
+        调用exitsUsername方法
+        将返回结果封装到Map
+        再转成json字符串返回客户端
+         */
+        var username = req.getParameter("username");
+        var existsUsername = userService.existsUsername(username);
+        var strObjMap = new HashMap<String, Object>();
+        strObjMap.put("existsUsername", existsUsername);
+
+        var gson = new Gson();
+        var jsonStr = gson.toJson(strObjMap);
+        resp.getWriter().write(jsonStr);
     }
 }

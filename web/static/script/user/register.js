@@ -36,6 +36,7 @@ $(function () {
     // 汉字在正则表示为[\u4e00-\u9fa5]
     let emailPattern = /^[\u4e00-\u9fa5\w-]+@[\u4e00-\u9fa5\w-]+(\.[\u4e00-\u9fa5\w-]+)+$/
 
+    // TODO change事件更好
     // 失去焦点时的验证
     $username.focusout(function () {
         prompt(userNamePattern, this.value, $errorMsg, "用户名不合法")

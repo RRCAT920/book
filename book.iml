@@ -38,5 +38,14 @@
     <orderEntry type="library" name="commons-logging-1.1.1" level="project" />
     <orderEntry type="library" name="taglibs-standard-impl-1.2.1" level="project" />
     <orderEntry type="library" name="kaptcha-2.3.2" level="project" />
+    <orderEntry type="module-library">
+      <library name="gson-2.2.4">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/web/WEB-INF/lib/gson-2.2.4.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>

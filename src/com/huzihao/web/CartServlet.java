@@ -1,5 +1,6 @@
 package com.huzihao.web;
 
+import com.google.gson.Gson;
 import com.huzihao.pojo.Cart;
 import com.huzihao.pojo.CartItem;
 import com.huzihao.service.BookService;
@@ -7,6 +8,7 @@ import com.huzihao.service.impl.BookServiceImpl;
 import com.huzihao.utils.WebUtils;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -121,5 +123,38 @@ public class CartServlet extends BaseServlet {
             cart.updateItemNumber(id, number);
             resp.sendRedirect(req.getHeader("Referer"));
         }
+    }
+
+    // FIXME: 2020/10/28 代码重复
+    protected void ajaxAddItem(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        /*
+        获取商品编号
+        bookService调用queryBookById得到book对象
+        转换成CartItem对象
+        再调用Cart.addItem
+        响应数据
+         */
+        int id = WebUtils.parseInt(req.getParameter("id"), 0);
+        var book = BOOK_SERVICE.queryBookById(id);
+        var cartItem = new CartItem(
+                book.getId(), book.getName(), 1, book.getPrice(), book.getPrice());
+
+        var cart = (Cart) req.getSession().getAttribute("cart");
+        if (null == cart) {
+            cart = new Cart();
+            req.getSession().setAttribute("cart", cart);
+        }
+
+        cart.addItem(cartItem);
+        req.getSession().setAttribute("lastName", cartItem.getName());
+
+        var strObjMap = new HashMap<String, Object>();
+        strObjMap.put("totalNumber", cart.getTotalNumber());
+        strObjMap.put("lastName", cartItem.getName());
+
+        var gson = new Gson();
+        var jsonStr = gson.toJson(strObjMap);
+        resp.getWriter().print(jsonStr);
     }
 }

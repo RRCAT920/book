@@ -10,7 +10,16 @@
         $(function () {
             $("button.addToCart").click(function () {
                 let bookId = $(this).attr("bookId");
-                location.href = "cart?action=addItem&id=" + bookId;
+                // location.href = "cart?action=addItem&id=" + bookId;
+                $.getJSON(
+                    "${basePath}cart",
+                    "action=ajaxAddItem&id=" + bookId,
+                    function (data) {
+                        $("#cartTotalNumber").text("您的购物车中有" + data.totalNumber + "件商品")
+                        $(".cartLastName").html("您刚刚将<span style='color: red'>" + data.lastName +
+                            "</span>加入到了购物车中")
+                    }
+                )
             })
         })
     </script>
@@ -47,18 +56,20 @@
             </form>
         </div>
         <div style="text-align: center">
-            <c:if test="${empty sessionScope.cart.items}">
-                <span> </span>
-                <div>
-                    <span style="color: red">当前购物车为空</span>
-                </div>
-            </c:if>
-            <c:if test="${not empty sessionScope.cart.items}">
-                <span>您的购物车中有${sessionScope.cart.totalNumber}件商品</span>
-                <div>
-                    您刚刚将<span style="color: red">${sessionScope.lastName}</span>加入到了购物车中
-                </div>
-            </c:if>
+            <c:choose>
+                <c:when test="${empty sessionScope.cart.items}">
+                    <span id="cartTotalNumber"> </span>
+                    <div class="cartLastName">
+                        <span style="color: red">当前购物车为空</span>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <span id="cartTotalNumber">您的购物车中有${sessionScope.cart.totalNumber}件商品</span>
+                    <div class="cartLastName">
+                        您刚刚将<span style="color: red">${sessionScope.lastName}</span>加入到了购物车中
+                    </div>
+                </c:otherwise>
+            </c:choose>
         </div>
         <c:forEach items="${requestScope.page.items}" var="book">
             <div class="b_list">
